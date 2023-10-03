@@ -1,0 +1,40 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  name       String
+  password   String
+  image      String
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  Blog       Blog[]
+  Comment    Comment[]
+}
+
+model Blog {
+  id         Int       @id @default(autoincrement())
+  title      String
+  content    String
+  image      String
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+  deleted_at DateTime?
+  user_id    Int
+  User       User      @relation(fields: [user_id], references: [id])
+  Comment    Comment[]
+}
+
+model Comment {
+  id         Int       @id @default(autoincrement())
+  content    String
+  created_at DateTime  @default(now())
+  deleted_at DateTime?
+  user_id    Int
+  blog_id    Int
+  User       User      @relation(fields: [user_id], references: [id])
+  Blog       Blog      @relation(fields: [blog_id], references: [id])
+}
