@@ -1,7 +1,11 @@
 const express = require('express');
 const app = express();
+const userRoutes = require('./routes/profile');
 
 const port = 3000;
+// Set EJS as the view engine
+app.set('view engine', 'ejs');
+app.set('views', './public/views');
 
- app.get('/', (req, res) => res.send('Hello World!'))
-app.listen(port, () => console.log(`Listening on port ${port}...`))
+app.use('/user', userRoutes);
+app.listen(port, () => console.log(`Listening on port ${port}...`));
