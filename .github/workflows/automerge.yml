@@ -16,8 +16,8 @@ jobs:
 
       - name: Merge PR if no conflicts
         run: |
-          git config --global user.email "your-email@example.com"
-          git config --global user.name "Your Name"
+          git config --global user.email "soufianeargane800@gmail.com"
+          git config --global user.name "soufianeargane"
           git fetch origin $GITHUB_HEAD_REF:$GITHUB_HEAD_REF
 
           # Check if there are any merge conflicts

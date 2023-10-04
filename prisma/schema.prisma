@@ -39,4 +39,6 @@ model Comment {
   Blog       Blog      @relation(fields: [blog_id], references: [id])
 }
 
-
+generator client {
+  provider = "prisma-client-js"
+}
