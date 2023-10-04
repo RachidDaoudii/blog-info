@@ -38,3 +38,5 @@ model Comment {
   User       User      @relation(fields: [user_id], references: [id])
   Blog       Blog      @relation(fields: [blog_id], references: [id])
 }
+
+
