@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>article</title>
+        <link rel="stylesheet" href="../src/style.css">
+    </head>
+    <body>
+        <h1 class="bg-amber-500 text-gray-800">article</h1>
+        
+        <% if (articles.length > 0) { %>
+            <ul>
+                <% articles.forEach((article,index) => { %>
+                    <li>
+                        <a href="article/show/<%= article.id %>">show this ....</a>
+                        <h2><%= article.title %></h2>
+                        <p><%= article.content %></p>
+                        <p><%= article.user_id %></p>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } 
+        else { %>
+            <p>No articles found.</p>
+        <% } %>
+    </body>
+</html>

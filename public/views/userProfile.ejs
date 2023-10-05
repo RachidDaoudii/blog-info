@@ -1,0 +1,33 @@
+<!-- do some html-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>My First PHP Page</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+<!--        use ejs-->
+        <h1>hello</h1>
+        <div>
+            <% if (successMessage) { %>
+                <div class="alert alert-success">
+                    <%= successMessage %>
+                </div>
+            <% } %>
+            <% if (errorMessage) { %>
+                <div class="alert alert-danger">
+                    <%= errorMessage %>
+                </div>
+            <% } %>
+        </div>
+        <form  id="updateForm" method="post" action="/user/profile/<%= user.id%>" enctype="multipart/form-data">
+            <input class="border" type="text" name="name" value="<%= user.name%>">
+            <input class="border"  type="text" name="email" value="<%= user.email%>">
+            <input class="border"  type="file" id="profileImage" name="profileImage" >
+            <input class="border"  type="submit" name="submit" value="Submit">
+        </form>
+    </body>
+    <script>
+
+    </script>
+</html>

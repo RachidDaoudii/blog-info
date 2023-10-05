@@ -9,8 +9,8 @@ model User {
   name       String
   password   String
   image      String
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
+  created_at DateTime  @default(now()) @map("created_at")
+  updated_at DateTime  @updatedAt @map("updated_at")
   Blog       Blog[]
   Comment    Comment[]
 }
@@ -37,4 +37,8 @@ model Comment {
   blog_id    Int
   User       User      @relation(fields: [user_id], references: [id])
   Blog       Blog      @relation(fields: [blog_id], references: [id])
+}
+
+generator client {
+  provider = "prisma-client-js"
 }
