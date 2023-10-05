@@ -24,3 +24,8 @@ As a Full Stack JavaScript specialist, we invite you to join our development tea
     4. User Profile
         Display and Modify Profile: Show and allow users to modify profile information (name, email, photo, etc.).
         List User Articles: Display a list of articles created by the user.
+
+##### Commands to run project
+
+    1. npm install
+    2. 
