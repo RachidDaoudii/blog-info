@@ -10,6 +10,7 @@
             <ul>
                 <% articles.forEach((article,index) => { %>
                     <li>
+                        <a href="article/show/<%= article.id %>">show this ....</a>
                         <h2><%= article.title %></h2>
                         <p><%= article.content %></p>
                         <p><%= article.user_id %></p>

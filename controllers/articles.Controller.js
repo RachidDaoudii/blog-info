@@ -12,7 +12,13 @@ class ArticleController {
     }
 
     static async show(req,res) {
-
+        try {
+            const article = await modelsArticles.show(req,res);
+            res.render('showArticle', { article });
+        } catch (error) {
+            console.error('Error fetching articles:', error);
+            return res.status(500).send('Internal Server Error');
+        }
     }
 
     static async add(req,res) {
@@ -26,8 +32,9 @@ class ArticleController {
 
     static async store(req,res) {
         try {
-            const articles = await modelsArticles.create(req, res);
-            res.redirect('/articles');
+            const data = req.body
+            const articles = await modelsArticles.create(data);
+            res.redirect('/article');
         } catch (error) {
             console.error('Error fetching articles:', error);
             return res.status(500).send('Internal Server Error');
@@ -46,8 +53,6 @@ class ArticleController {
 
     }
 }
-
-
 
 module.exports = {
     index : ArticleController.index,
