@@ -59,7 +59,7 @@ class article{
                     title : req.body.title,
                     content : req.body.content,
                     updated_at : new Date(),
-                    image : req.file.filename
+                    image : req.body.image
                 }
             })
             return article
