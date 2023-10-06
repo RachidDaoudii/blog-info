@@ -5,7 +5,14 @@ const userRoutes = require('./routes/profile');
 const articleRoutes = require('./routes/articles');
 
 // set style
-app.use(express.static('public'));
+// Configure Express to serve CSS files with a MIME type of 'text/css'
+app.use(express.static('src', {
+    setHeaders: (res, path, stat) => {
+        if (path.endsWith('.css')) {
+            res.setHeader('Content-Type', 'text/css');
+        }
+    },
+}));
 
 const port = 3000;
 
