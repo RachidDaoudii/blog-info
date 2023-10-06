@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>add article</title>
+        <link rel="stylesheet" href="/style.css">
+    </head>
+    <body>
+        <h1 class="bg-amber-500 text-gray-800">form add article</h1>
+        <form action="/article/add" method="post" enctype="multipart/form-data">
+            <input type="text" name="title" placeholder="title" />
+            <textarea name="content" id="" cols="30" rows="10"></textarea>
+            <input type="file" name="image" placeholder="image"/>
+            <button type="submit" name="add">Add Article</button>
+        </form>
+    </body>
+</html>
