@@ -1,5 +1,5 @@
 const modelsArticles = require('../models/article.models')
-
+const fs = require('fs');
 class ArticleController {
     static async index(req, res) {
         try {
@@ -21,7 +21,7 @@ class ArticleController {
         }
     }
 
-    static async add(res) {
+    static async add(req,res) {
         try {
             res.render('article/addArticle');
         } catch (error) {
@@ -54,9 +54,15 @@ class ArticleController {
 
     static async update(req,res) {
         try {
+            if (!req.file) {
+                req.body.image = req.body.old_image;
+            }else{
+                req.body.image = req.file.filename;
+                await ArticleController.unlinkimage(req.body.old_image);
+            }
+
             const articles = await modelsArticles.update(req);
             res.redirect('/article');
-            
         } catch (error) {
             console.error('Error fetching articles:', error);
             return res.status(404).send('Internal Server Error');
@@ -66,11 +72,22 @@ class ArticleController {
     static async delete(req,res) {
         try {
             const article = await modelsArticles.delete(req);
+            await ArticleController.unlinkimage(req.body.old_image);
             res.redirect('/article');
         } catch (error) {
-            onsole.error('Error fetching articles:', error);
+            console.error('Error fetching articles:', error);
             return res.status(404).send('Internal Server Error');
         }
+    }
+
+    static async unlinkimage(nameimage){
+        const deleteimage = await fs.unlink(`./public/images/${nameimage}`, (err) => {
+        if (err) {
+            console.error('Erreur lors de la suppression de l\'image', err);
+            return;
+        }
+        console.log('Image supprimée avec succès');
+        });
     }
 }
 
