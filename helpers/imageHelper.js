@@ -1,6 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 const imageFileFilter = require('../requests/imageFileFilter');
+const fs = require('fs');
 
 // Define multer storage configuration
 const storage = multer.diskStorage({
