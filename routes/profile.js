@@ -6,7 +6,7 @@ const upload = require('../helpers/imageHelper');
 // Display user profile
 router.get('/profile/:userId', UserController.getUserProfile);
 // Update user profile
-router.post('/profile/:userId', upload.single('profileImage') ,UserController.updateUserProfile);
+router.post('/profile/:userId', upload.upload.single('profileImage') ,UserController.updateUserProfile);
 
 
 
