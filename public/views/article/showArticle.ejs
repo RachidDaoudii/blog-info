@@ -1,15 +1,15 @@
 <html>
     <head>
         <title>Show article</title>
-        <link rel="stylesheet" href="../src/style.css">
+        <link rel="stylesheet" href="/style.css">
     </head>
     <body>
         <h1 class="bg-amber-500 text-gray-800">Show article</h1>
             <ul>
                 <li>
                     <h2><%= article.title %></h2>
+                    <img src="../../images/<%= article.image %>" width="200px" alt="" />
                     <p><%= article.content %></p>
-                    <p><%= article.image %></p>
                     <p><%= article.user_id %></p>
                 </li>
             </ul>

@@ -11,6 +11,12 @@
                 <% articles.forEach((article,index) => { %>
                     <li>
                         <a href="article/show/<%= article.id %>">show this ....</a>
+                        <a href="article/edit/<%= article.id %>">eidt this ....</a>
+                        <form action="article/delete/<%= article.id %>?_method=DELETE" method="post">
+                            <input type="hidden" name="old_image" value="<%= article.image %>">
+                            <button type="submit" name="delete">delete this ....</button>
+                        </form>
+                        <img src="/images/<%= article.image %>" width="200px" alt="" />
                         <h2><%= article.title %></h2>
                         <p><%= article.content %></p>
                         <p><%= article.user_id %></p>

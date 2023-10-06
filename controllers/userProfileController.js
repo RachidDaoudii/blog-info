@@ -6,14 +6,17 @@ const getUserProfile = async (req, res) => {
         const { userId } = req.params;
         const success = req.query.success;
         // Check if there's a success message
-        const successMessage = req.query.success ? 'Profile updated successfully!' : '';
-        const errorMessage = req.query.error ? 'An error occurred, please try again.' : '';
+        const errorMessage = req.session.errorMessage;
+        const successMessage = req.session.successMessage;
         const user = await prisma.user.findUnique({
             where: {
                 id: parseInt(userId)
             }
         });
         console.log(user);
+        // Clear the messages from the session
+        req.session.errorMessage = null;
+        req.session.successMessage = null;
         res.render('userProfile', { user, successMessage, errorMessage });
     } catch (error) {
         console.log(error.message);
@@ -23,8 +26,17 @@ const getUserProfile = async (req, res) => {
 };
 
 const updateUserProfile = async (req, res) => {
-    // Send a response with the received name
-    const { userId } = req.params;
+
+    let { userId } = req.params;
+    // check error
+    if (req.fileValidationError) {
+        // Store the error message in the session
+        req.session.errorMessage = req.fileValidationError;
+
+        // Redirect the user to the profile page
+        return res.redirect(`/user/profile/${userId}`);
+    }
+
     try {
         // const { userId } = req.params;
         const updatedProfileData = req.body;
@@ -46,7 +58,10 @@ const updateUserProfile = async (req, res) => {
                 },
             });
         }
-        res.redirect(`/user/profile/${userId}?success=1`);
+
+        // Redirect the user to the profile page with a success message
+        req.session.successMessage = 'Profile updated successfully';
+        res.redirect(`/user/profile/${userId}`);
     }catch (error) {
         console.log(error.message);
         res.redirect(`/user/profile/${userId}?error=1`);

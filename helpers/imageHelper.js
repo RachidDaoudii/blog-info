@@ -1,6 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 const imageFileFilter = require('../requests/imageFileFilter');
+const fs = require('fs');
 
 // Define multer storage configuration
 const storage = multer.diskStorage({
@@ -15,4 +16,18 @@ const storage = multer.diskStorage({
 // Create a multer instance with the defined storage configuration
 const upload = multer({ storage: storage, fileFilter: imageFileFilter });
 
-module.exports = upload;
+
+const unlinkimage = async (nameimage)=>{
+    const deleteimage =  await fs.unlink(`./public/images/${nameimage}`, (err) => {
+    if (err) {
+        console.error('Erreur lors de la suppression de l\'image', err);
+        return;
+    }
+    console.log('Image supprimée avec succès');
+    });
+}
+
+module.exports = {
+    upload,
+    unlinkimage
+};
