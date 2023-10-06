@@ -1,10 +1,10 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const validateFormUser = require('../requests/formUser');
 
 const getUserProfile = async (req, res) => {
     try {
         const { userId } = req.params;
-        const success = req.query.success;
         // Check if there's a success message
         const errorMessage = req.session.errorMessage;
         const successMessage = req.session.successMessage;
@@ -36,6 +36,15 @@ const updateUserProfile = async (req, res) => {
         // Redirect the user to the profile page
         return res.redirect(`/user/profile/${userId}`);
     }
+
+    // validate form
+    let error = validateFormUser(req, res);
+    if (error) {
+        console.log(error);
+        req.session.errorMessage = error.details[0].message;
+        return res.redirect(`/user/profile/${userId}`);
+    }
+
 
     try {
         // const { userId } = req.params;
