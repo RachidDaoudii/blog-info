@@ -1,11 +1,13 @@
 const modelsArticles = require('../models/article.models')
-const fs = require('fs');
+const unlink = require('../helpers/imageHelper');
+
 class ArticleController {
     static async index(req, res) {
         try {
             const articles = await modelsArticles.getAll();
             res.render('article/AllArticle', { articles });
         } catch (error) {
+            // res.render('article/404',{error});
             console.error('Error fetching articles:', error);
             return res.status(404).send('Internal Server Error');
         }
@@ -16,6 +18,7 @@ class ArticleController {
             const article = await modelsArticles.show(req,res);
             res.render('article/showArticle', { article });
         } catch (error) {
+            // res.render('article/404',{error});
             console.error('Error fetching articles:', error);
             return res.status(404).send('Internal Server Error');
         }
@@ -58,7 +61,7 @@ class ArticleController {
                 req.body.image = req.body.old_image;
             }else{
                 req.body.image = req.file.filename;
-                await ArticleController.unlinkimage(req.body.old_image);
+                await unlink.unlinkimage(req.body.old_image);
             }
 
             const articles = await modelsArticles.update(req);
@@ -72,22 +75,12 @@ class ArticleController {
     static async delete(req,res) {
         try {
             const article = await modelsArticles.delete(req);
-            await ArticleController.unlinkimage(req.body.old_image);
+            await unlink.unlinkimage(req.body.old_image);
             res.redirect('/article');
         } catch (error) {
             console.error('Error fetching articles:', error);
             return res.status(404).send('Internal Server Error');
         }
-    }
-
-    static async unlinkimage(nameimage){
-        const deleteimage = await fs.unlink(`./public/images/${nameimage}`, (err) => {
-        if (err) {
-            console.error('Erreur lors de la suppression de l\'image', err);
-            return;
-        }
-        console.log('Image supprimée avec succès');
-        });
     }
 }
 
