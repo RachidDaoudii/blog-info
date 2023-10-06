@@ -3,8 +3,12 @@ const session = require('express-session');
 const app = express();
 const userRoutes = require('./routes/profile');
 const articleRoutes = require('./routes/articles');
+const methodOverride = require('method-override');
 
+// Use method-override middleware
+app.use(methodOverride('_method'));
 // set style
+app.use(express.static('public'));
 // Configure Express to serve CSS files with a MIME type of 'text/css'
 app.use(express.static('src', {
     setHeaders: (res, path, stat) => {
