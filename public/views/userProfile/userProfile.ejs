@@ -3,11 +3,11 @@
 <html lang="en">
     <head>
         <title>Blog-Info</title>
-        <link href="../src/style.css" rel="stylesheet" >
+        <link href="src/style.css" rel="stylesheet" >
     </head>
     <body>
 <!--        use ejs-->
-        <h1>hello</h1>
+        <h1 class="text-4xl text-amber-950">hello</h1>
         <div>
             <% if (successMessage) { %>
                 <div class="alert alert-success">
@@ -21,6 +21,7 @@
             <% } %>
         </div>
         <form  id="updateForm" method="post" action="/user/profile/<%= user.id%>" enctype="multipart/form-data">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <input class="border" type="text" name="name" value="<%= user.name%>">
             <input class="border"  type="text" name="email" value="<%= user.email%>">
             <input class="border"  type="file" id="profileImage" name="profileImage" >
