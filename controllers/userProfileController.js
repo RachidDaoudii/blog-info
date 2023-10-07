@@ -17,7 +17,7 @@ const getUserProfile = async (req, res) => {
         // Clear the messages from the session
         req.session.errorMessage = null;
         req.session.successMessage = null;
-        res.render('userProfile', { user, successMessage, errorMessage });
+        res.render('userProfile/userProfile', { user, successMessage, errorMessage });
     } catch (error) {
         console.log(error.message);
         res.status(500).send(error.message);

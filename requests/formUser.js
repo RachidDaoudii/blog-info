@@ -11,7 +11,6 @@ const validateFormUser = (req, res) => {
     }).options({ allowUnknown: true });
     const { error } = schema.validate(req.body);
     return error;
-    // next();
 }
 
 module.exports = validateFormUser;
