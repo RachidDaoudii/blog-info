@@ -1,51 +1,78 @@
 const modelsArticles = require('../models/article.models')
 const unlink = require('../helpers/imageHelper');
+const validation = require('../requests/requestArticle');
+const imageHelper = require('../helpers/imageHelper');
+
 
 class ArticleController {
+
+    static errorMessage = null;
+    static successMessage = null;
+
     static async index(req, res) {
         try {
             const articles = await modelsArticles.getAll();
-            res.render('article/AllArticle', { articles });
+            ArticleController.successMessage = null;
+
+            res.render('article/AllArticle', { articles ,successMessage : ArticleController.successMessage});
+            
+
         } catch (error) {
-            // res.render('article/404',{error});
             console.error('Error fetching articles:', error);
             return res.status(404).send('Internal Server Error');
         }
     }
 
     static async show(req,res) {
+
         try {
+
             const article = await modelsArticles.show(req,res);
             res.render('article/showArticle', { article });
+
         } catch (error) {
-            // res.render('article/404',{error});
             console.error('Error fetching articles:', error);
             return res.status(404).send('Internal Server Error');
         }
     }
 
     static async add(req,res) {
+
         try {
-            res.render('article/addArticle');
+            ArticleController.errorMessage = null
+            res.render('article/addArticle',{errorMessage : ArticleController.errorMessage});
+
         } catch (error) {
-            console.error('Error fetching articles:', error);
+            console.error('Error fetching articles:', {error});
             return res.status(404).send('Internal Server Error');
         }
     }
 
     static async store(req,res) {
+        
         try {
-            const data = req.body
-            data.image = req.file
-            const articles = await modelsArticles.create(data);
-            res.redirect('/article');
+
+            const check = validation.validateInput(req);
+            
+            if(check.error){
+                ArticleController.errorMessage = "All is required";
+                return res.status(400).render('article/addArticle',{errorMessage : ArticleController.errorMessage});
+            }
+
+            await modelsArticles.create(req);
+            ArticleController.successMessage = "Article Added Successfully";
+            const articles = await modelsArticles.getAll();
+
+            res.status(201).render('article/AllArticle',{ articles ,successMessage : ArticleController.successMessage});
+
         } catch (error) {
-            console.error('Error fetching articles:', error);
-            return res.status(404).send('Internal Server Error');
+            ArticleController.errorMessage = error
+            res.status(400).render('article/addArticle',{errorMessage : ArticleController.errorMessage})
         }
     }
 
     static async edit(req,res) {
+
         try {
             const article = await modelsArticles.show(req,res);
             res.render('article/editArticle', { article });
@@ -56,7 +83,9 @@ class ArticleController {
     }
 
     static async update(req,res) {
+
         try {
+
             if (!req.file) {
                 req.body.image = req.body.old_image;
             }else{
@@ -66,6 +95,7 @@ class ArticleController {
 
             const articles = await modelsArticles.update(req);
             res.redirect('/article');
+            
         } catch (error) {
             console.error('Error fetching articles:', error);
             return res.status(404).send('Internal Server Error');
@@ -73,16 +103,21 @@ class ArticleController {
     }
 
     static async delete(req,res) {
+
         try {
+
             const article = await modelsArticles.delete(req);
-            await unlink.unlinkimage(req.body.old_image);
+            await unlink.unlinkimage(article.image);
+            ArticleController.successMessage = "Article Deleted Successfully";
             res.redirect('/article');
+
         } catch (error) {
             console.error('Error fetching articles:', error);
             return res.status(404).send('Internal Server Error');
         }
     }
 }
+
 
 module.exports = {
     index : ArticleController.index,
@@ -91,5 +126,7 @@ module.exports = {
     store : ArticleController.store,
     edit : ArticleController.edit,
     update : ArticleController.update,
-    delete : ArticleController.delete
+    delete : ArticleController.delete,
+    errorMessage : ArticleController.errorMessage,
+    successMessage : ArticleController.successMessage
 }

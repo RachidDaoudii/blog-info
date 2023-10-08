@@ -18,9 +18,9 @@ class article{
         try {
             const articles = await prisma.blog.create({
                 data : {
-                    title : req.title,
-                    content : req.content,
-                    image : req.image.filename,
+                    title : req.body.title,
+                    content : req.body.content,
+                    image : req.file.filename,
                     user_id: 1
                 }
             });
