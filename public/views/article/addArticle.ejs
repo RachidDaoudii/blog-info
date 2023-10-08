@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>add article</title>
-        <link rel="stylesheet" href="/style.css">
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
         <h1 class="bg-amber-500 text-gray-800">form add article</h1>
@@ -11,5 +11,10 @@
             <input type="file" name="image" placeholder="image"/>
             <button type="submit" name="add">Add Article</button>
         </form>
+        <% if (errorMessage) { %>
+            <div class="alert alert-danger">
+                <%= errorMessage %>
+            </div>
+        <% } %>
     </body>
 </html>
