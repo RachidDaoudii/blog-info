@@ -9,5 +9,5 @@ router.get('/profile/:userId', UserController.getUserProfile);
 router.post('/profile/:userId', upload.upload.single('profileImage') ,UserController.updateUserProfile);
 
 
-
+        
 module.exports = router;

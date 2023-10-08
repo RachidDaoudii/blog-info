@@ -3,6 +3,7 @@ const session = require('express-session');
 const app = express();
 const userRoutes = require('./routes/profile');
 const articleRoutes = require('./routes/articles');
+const commentsRoutes = require('./routes/comments');
 const methodOverride = require('method-override');
 const csrf = require('csurf');
 const cookieParser = require('cookie-parser');
@@ -50,5 +51,6 @@ app.use((req, res, next) => {
 // routes
 app.use('/user', userRoutes);
 app.use('/article', articleRoutes);
+app.use('/comment', commentsRoutes);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
