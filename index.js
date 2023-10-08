@@ -1,4 +1,5 @@
 const express = require('express');
+const layoutEjs  = require('express-ejs-layouts')
 const session = require('express-session');
 const app = express();
 const userRoutes = require('./routes/profile');
@@ -37,6 +38,7 @@ app.use(
 );
 
 // Set EJS as the view engine
+app.use(layoutEjs);
 app.set('view engine', 'ejs');
 app.set('views', './public/views');
 

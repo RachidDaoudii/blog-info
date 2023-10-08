@@ -1,39 +1,31 @@
-<html>
-    <head>
-        <title>article</title>
-        <link rel="stylesheet" href="../src/style.css">
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    </head>
-    <body>
-        <h1 class="bg-amber-500 text-gray-800">article</h1><br>
-        <% if (successMessage) { %>
-            <div class="alert alert-danger">
-                <%= successMessage %>
-            </div>
-        <% } %>
-        <br>
-        
-        <% if (articles.length > 0) { %>
-            <ul>
-                <% articles.forEach((article,index) => { %>
-                    <li>
-                        <a href="show/<%= article.id %>">show this ....</a>
-                        <a href="edit/<%= article.id %>">eidt this ....</a>
-                        <form action="delete/<%= article.id %>?_method=DELETE" method="post">
-                            <input type="hidden" name="old_image" value="<%= article.image %>">
-                            <button type="submit" name="delete">delete this ....</button>
-                        </form>
-                        <img src="/images/<%= article.image %>" width="200px" alt="" />
-                        <h2><%= article.title %></h2>
-                        <p><%= article.content %></p>
-                        <p><%= article.user_id %></p>
-                    </li>
-                <% }); %>
-            </ul>
-        <% } 
-        else { %>
-            <p>No articles found.</p>
-        <% } %>
-    </body>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-</html>
+
+    <h1 class="bg-amber-500 text-gray-800">article</h1><br>
+    <% if (successMessage) { %>
+        <div class="alert alert-danger">
+            <%= successMessage %>
+        </div>
+    <% } %>
+    <br>
+    
+    <% if (articles.length > 0) { %>
+        <ul>
+            <% articles.forEach((article,index) => { %>
+                <li>
+                    <a href="show/<%= article.id %>">show this ....</a>
+                    <a href="edit/<%= article.id %>">eidt this ....</a>
+                    <form action="delete/<%= article.id %>?_method=DELETE" method="post">
+                        <input type="hidden" name="old_image" value="<%= article.image %>">
+                        <button type="submit" name="delete">delete this ....</button>
+                    </form>
+                    <img src="/images/<%= article.image %>" width="200px" alt="" />
+                    <h2><%= article.title %></h2>
+                    <p><%= article.content %></p>
+                    <p><%= article.user_id %></p>
+                </li>
+            <% }); %>
+        </ul>
+    <% } 
+    else { %>
+        <p>No articles found.</p>
+    <% } %>
+    
