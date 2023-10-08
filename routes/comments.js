@@ -4,8 +4,8 @@ const CommentsController = require('../controllers/comments.Controller');
 
 
 router.get('/',CommentsController.index)
-router.get('/addCommment',CommentsController.addComment)
-router.post('/addComment',CommentsController.storeComment);
-router.delete('/deleteComment/:id',CommentsController.deleteComment);
+router.get('/addCommment',CommentsController.add)
+router.post('/addComment',CommentsController.store);
+router.delete('/deleteComment/:id',CommentsController.delete);
 
 module.exports = router;
