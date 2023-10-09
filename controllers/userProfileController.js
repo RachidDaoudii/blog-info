@@ -3,6 +3,7 @@ const prisma = new PrismaClient();
 const validateFormUser = require('../requests/formUser');
 
 const getUserProfile = async (req, res) => {
+
     try {
         const { userId } = req.params;
         // Check if there's a success message
@@ -13,7 +14,6 @@ const getUserProfile = async (req, res) => {
                 id: parseInt(userId)
             }
         });
-        console.log(user);
         // Clear the messages from the session
         req.session.errorMessage = null;
         req.session.successMessage = null;
@@ -26,6 +26,12 @@ const getUserProfile = async (req, res) => {
 };
 
 const updateUserProfile = async (req, res) => {
+    // return res.send('hhhhh');
+    const csrfToken = req.body._csrf;
+    const csrfCookie = req.cookies.csrfToken;
+    if (csrfToken !== csrfCookie) {
+        return res.send('CSRF token is invalid');
+    }
 
     let { userId } = req.params;
     // check error
