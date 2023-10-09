@@ -1,18 +1,27 @@
 const express = require('express');
+const layoutEjs = require('express-ejs-layouts');
 const session = require('express-session');
 const app = express();
 const userRoutes = require('./routes/profile');
 const articleRoutes = require('./routes/articles');
+const commentsRoutes = require('./routes/comments');
+const authRouter = require('./routes/auth')
+const methodOverride = require('method-override');
+const csrf = require('csurf');
+const cookieParser = require('cookie-parser');
+const multer = require('multer');
+// const AuthController = require('./controllers/AuthController');
+const upload = multer({ dest: 'uploads/' });
+app.use(cookieParser());
 
+// Initialize the CSRF middleware and make it available to your routes
+// const csrfProtection = csrf({ cookie: true });
+// app.use(csrfProtection);
+
+// Use method-override middleware
+app.use(methodOverride('_method'));
 // set style
-// Configure Express to serve CSS files with a MIME type of 'text/css'
-app.use(express.static('src', {
-    setHeaders: (res, path, stat) => {
-        if (path.endsWith('.css')) {
-            res.setHeader('Content-Type', 'text/css');
-        }
-    },
-}));
+app.use(express.static('public'));
 
 const port = 3000;
 
@@ -35,8 +44,17 @@ app.use(
 app.set('view engine', 'ejs');
 app.set('views', './public/views');
 
+// app.use((req, res, next) => {
+//     res.locals.csrfToken = req.csrfToken();
+//     next();
+// });
+
 // routes
 app.use('/user', userRoutes);
 app.use('/article', articleRoutes);
+app.use('/comment', commentsRoutes);
+app.use('/auth', authRouter)
+    // Authentication routes
+
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
