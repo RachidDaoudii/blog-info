@@ -36,11 +36,34 @@ class article{
         try {
             const article = await prisma.blog.findUnique(
                 {
+                    select:{
+                        id : true,
+                        title : true,
+                        content : true,
+                        image : true,
+                        created_at : true,
+                        updated_at : true,
+                        Comment:{
+                            select:{
+                                id:true,
+                                content:true,
+                                created_at:true,
+                                User:{
+                                    select:{
+                                        id:true,
+                                        name:true,
+                                        image:true
+                                    }
+                                }
+                            }
+                        }
+                    },
                     where : {
                         id : parseInt(req.params.id)
                     }
                 }
             )
+            // console.log(article.Comment);
             return article
         } catch (error) {
             console.error('Error fetching articles:', error);
