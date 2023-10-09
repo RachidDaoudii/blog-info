@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"  rel="stylesheet" />
+
+</head>
+<body>
+
+    <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
+        <div class="max-w-2xl mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+              <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion (total number)</h2>
+          </div>
+          
+          <form class="mb-6" action="/comment/addComment" method="post" >
+              <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                  <label for="comment" class="sr-only">Your comment</label>
+                  <input id="comment" type="text" name="content" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="Write a comment..." required>
+              </div>
+              <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                  Post comment
+              </button>
+          </form>
+
+          <div class="mb-3 bg-light rounded" style="max-height: 25em;  overflow-y: auto; scrollbar-width: none;"> <style> .mb-3::-webkit-scrollbar { width: 0.2em; } .mb-3::-webkit-scrollbar-thumb { background-color: transparent; } .mb-3 { scrollbar-width: none; } </style>
+          <% comments.forEach((comment,index) => { %>
+            <article class="p-6 text-base bg-white rounded-lg dark:bg-gray-900">
+              <footer class="flex justify-between items-center mb-2">
+                  <div class="flex items-center">
+                    <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
+                    <img class="mr-2 w-6 h-6 rounded-full" src="" alt="Michael Gough">
+                    Michael Gough
+                    </p>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                    <time pubdate datetime="2022-02-08" title=""><%=comment.created_at.toLocaleString()%></time>
+                    </p>
+                  </div>
+                  
+                            <div class="inline-flex items-center ">
+                                <div class="mr-1">
+                                    <button onclick="showComment('<%=comment.id%>')">
+                                            <svg class="w-4 h-4 text-blue-700 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+                                            <path d="M12.687 14.408a3.01 3.01 0 0 1-1.533.821l-3.566.713a3 3 0 0 1-3.53-3.53l.713-3.566a3.01 3.01 0 0 1 .821-1.533L10.905 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V11.1l-3.313 3.308Zm5.53-9.065.546-.546a2.518 2.518 0 0 0 0-3.56 2.576 2.576 0 0 0-3.559 0l-.547.547 3.56 3.56Z"/>
+                                            <path d="M13.243 3.2 7.359 9.081a.5.5 0 0 0-.136.256L6.51 12.9a.5.5 0 0 0 .59.59l3.566-.713a.5.5 0 0 0 .255-.136L16.8 6.757 13.243 3.2Z"/>
+                                          </svg>
+                                        </button>
+                                </div>
+                        
+                            <div>
+                                <form action="/comment/deleteComment/<%= comment.id %>?_method=DELETE" method="post">
+                                    <input type="hidden" name="id_comment" value="<%= comment.id %>">
+                                    <button type="submit"><svg class="w-4 h-4 text-red-700 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                        <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
+                                      </svg></button>
+                                </form>
+                            </div>
+                        </div>
+                          
+                    </footer>
+                    <form id="form-<%=comment.id%>" action="/comment/updateComment/<%= comment.id %>" method="post" class="hidden">
+                        <p>                                 
+                            <input id="cmt-input-<%=comment.id%>" type="text" name="updateContent" class="p-1 rounded border-gray-200" value="">
+                            <button onclick="showComment('')" type="submit"><b class="text-green-400" style="font-size: .8em">Save</b></button>
+                        </p>
+                    </form>
+                    <p id="cmt-txt-<%=comment.id%>" class="text-gray-500 dark:text-gray-400"><%=comment.content%></p>
+          </article>
+          <% }); %>
+          </div>
+
+        </div>
+      </section>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+
+      <script>
+        function showComment(cmtID){
+            document.querySelector("#cmt-txt-"+cmtID).setAttribute('class', 'hidden');
+            document.querySelector("#cmt-input-"+cmtID).value = document.querySelector("#cmt-txt-"+cmtID).innerHTML
+            document.querySelector("#form-"+cmtID).setAttribute('class', 'block');
+            // console.log(document.querySelector("#cmt-input-"+cmtID).value)
+        }
+      </script>
+
+</body>
+</html>

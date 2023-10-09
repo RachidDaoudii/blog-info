@@ -3,8 +3,6 @@ const router = express.Router();
 const UserController = require('../controllers/userProfileController');
 const upload = require('../helpers/imageHelper');
 const generateCSRFToken = require("../helpers/tokenGenerator");
-const checkCsrfToken = require("../middlewares/checkCsrfToken");
-
 
 // Display user profile
 router.get('/profile/:userId', generateCSRFToken, UserController.getUserProfile);
