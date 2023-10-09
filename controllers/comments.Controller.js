@@ -11,20 +11,22 @@ class CommentController {
         }
     }
     
-    // static async addComment(req,res) {
-    //     try {
-    //         res.render('addcomment');
-    //     } catch (error) {
-    //         console.error('Error fetching comments:', error);
-    //         return res.status(500).send('Internal Server Error');
-    //     }
-    // }
 
     static async storeComment(req,res) {
         try {
             await modelsComments.createComment(req);
-            const comments = await modelsComments.getAllComments();
-            res.render('comments', { comments });
+            res.redirect('/comment');
+
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+            return res.status(500).send('Internal Server Error');
+        }
+    }
+
+    static async updateComment(req,res) {
+        try {
+            await modelsComments.updateComment(req);
+            res.redirect('/comment');
 
         } catch (error) {
             console.error('Error fetching comments:', error);
@@ -33,6 +35,8 @@ class CommentController {
     }
 
     static async deleteComment(req,res) {
+        // console.log(req.params.id);
+        // console.log(req.body);
             await modelsComments.deleteComment(req);
             res.redirect('/comment');
     }
@@ -40,9 +44,7 @@ class CommentController {
 
 module.exports = {
     index : CommentController.index,
-    // add : CommentController.addComment,
     store : CommentController.storeComment,
-    // edit : CommentController.edit,
-    // update : CommentController.updateC,
+    update : CommentController.updateComment,
     delete : CommentController.deleteComment
 }
