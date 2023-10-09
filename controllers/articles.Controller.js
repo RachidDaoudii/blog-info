@@ -1,3 +1,4 @@
+const modelsArticles = require('../models/article.models')
 const unlink = require('../helpers/imageHelper');
 const validation = require('../requests/requestArticle');
 const imageHelper = require('../helpers/imageHelper');
@@ -25,7 +26,6 @@ class ArticleController {
     static async show(req, res) {
 
         try {
-
             const article = await modelsArticles.show(req, res);
             res.render('article/showArticle', { article });
 
@@ -70,7 +70,7 @@ class ArticleController {
         }
     }
 
-    static async edit(req, res) {
+    static async delete(req, res) {
 
         try {
             const article = await modelsArticles.show(req, res);

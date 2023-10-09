@@ -1,0 +1,9 @@
+
+    <h1 class="bg-amber-500 text-gray-800">form edit article</h1>
+    <form action="/article/update/<%= article.id %>" method="post" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="title" value="<%= article.title %>" />
+        <textarea name="content" id="" cols="30" rows="10"><%= article.content %></textarea>
+        <input type="hidden" name="old_image" value="<%= article.image %>">
+        <input type="file" name="image" placeholder="image"/>
+        <button type="submit" name="add">Edit Article</button>
+    </form>

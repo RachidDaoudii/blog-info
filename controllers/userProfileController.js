@@ -1,10 +1,11 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const validateFormUser = require('../requests/formUser');
 
 const getUserProfile = async (req, res) => {
+
     try {
         const { userId } = req.params;
-        const success = req.query.success;
         // Check if there's a success message
         const errorMessage = req.session.errorMessage;
         const successMessage = req.session.successMessage;
@@ -13,11 +14,10 @@ const getUserProfile = async (req, res) => {
                 id: parseInt(userId)
             }
         });
-        console.log(user);
         // Clear the messages from the session
         req.session.errorMessage = null;
         req.session.successMessage = null;
-        res.render('userProfile', { user, successMessage, errorMessage });
+        res.render('userProfile/userProfile', { user, successMessage, errorMessage });
     } catch (error) {
         console.log(error.message);
         res.status(500).send(error.message);
@@ -26,6 +26,12 @@ const getUserProfile = async (req, res) => {
 };
 
 const updateUserProfile = async (req, res) => {
+    // return res.send('hhhhh');
+    const csrfToken = req.body._csrf;
+    const csrfCookie = req.cookies.csrfToken;
+    if (csrfToken !== csrfCookie) {
+        return res.send('CSRF token is invalid');
+    }
 
     let { userId } = req.params;
     // check error
@@ -36,6 +42,15 @@ const updateUserProfile = async (req, res) => {
         // Redirect the user to the profile page
         return res.redirect(`/user/profile/${userId}`);
     }
+
+    // validate form
+    let error = validateFormUser(req, res);
+    if (error) {
+        console.log(error);
+        req.session.errorMessage = error.details[0].message;
+        return res.redirect(`/user/profile/${userId}`);
+    }
+
 
     try {
         // const { userId } = req.params;

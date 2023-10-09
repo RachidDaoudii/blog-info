@@ -1,4 +1,3 @@
-// controllers/AuthController.js
 const bcrypt = require('bcryptjs');
 const User = require('../models/user.models');
 const { PrismaClient } = require('@prisma/client');
