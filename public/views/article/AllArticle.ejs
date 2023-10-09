@@ -1,31 +1,121 @@
+<% if (successMessage) { %>
+<div class="alert alert-danger"><%= successMessage %></div>
+<% } %>
+<br />
 
-    <h1 class="bg-amber-500 text-gray-800">article</h1><br>
-    <% if (successMessage) { %>
-        <div class="alert alert-danger">
-            <%= successMessage %>
+<% if (articles.length > 0) { %>
+<div class="grid gap-10 md:grid-cols-2 lg:gap-10">
+  <% articles.forEach((article,index) => { %>
+  <div class="group cursor-pointer">
+    <div
+      class="overflow-hidden rounded-md bg-gray-100 transition-all hover:scale-105 dark:bg-gray-800"
+    >
+      <a
+        class="relative block aspect-video"
+        href="article/show/<%= article.id %>"
+      >
+        <img
+          alt="Thumbnail"
+          fetchpriority="high"
+          decoding="async"
+          data-nimg="fill"
+          class="object-cover transition-all"
+          sizes="(max-width: 768px) 30vw, 33vw"
+          src="../../images/<%= article.image %>"
+          style="
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            inset: 0px;
+            color: transparent;
+          "
+      /></a>
+    </div>
+    <div class="">
+      <div>
+        <div class="flex gap-3">
+          <a href="/category/technology"
+            ><span
+              class="inline-block text-xs font-medium tracking-wider uppercase mt-5 text-blue-600"
+              >Technology</span
+            ></a
+          >
         </div>
-    <% } %>
-    <br>
-    
-    <% if (articles.length > 0) { %>
-        <ul>
-            <% articles.forEach((article,index) => { %>
-                <li>
-                    <a href="show/<%= article.id %>">show this ....</a>
-                    <a href="edit/<%= article.id %>">eidt this ....</a>
-                    <form action="delete/<%= article.id %>?_method=DELETE" method="post">
-                        <input type="hidden" name="old_image" value="<%= article.image %>">
-                        <button type="submit" name="delete">delete this ....</button>
-                    </form>
-                    <img src="/images/<%= article.image %>" width="200px" alt="" />
-                    <h2><%= article.title %></h2>
-                    <p><%= article.content %></p>
-                    <p><%= article.user_id %></p>
-                </li>
-            <% }); %>
-        </ul>
-    <% } 
-    else { %>
-        <p>No articles found.</p>
-    <% } %>
-    
+        <h2
+          class="text-lg font-semibold leading-snug tracking-tight mt-2 dark:text-white"
+        >
+          <a
+            href="/post/architectural-engineering-wonders-of-the-modern-era-for-your-inspiration"
+            ><span
+              class="bg-gradient-to-r from-green-200 to-green-100 text-stone-950 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px] dark:from-green-100 dark:to-green-100"
+              ><%= article.title %></span
+            ></a
+          >
+        </h2>
+        <div class="hidden">
+          <p class="mt-2 line-clamp-3 text-sm text-gray-500 dark:text-gray-400">
+            <a
+              href="/post/architectural-engineering-wonders-of-the-modern-era-for-your-inspiration"
+              >Reinvention often comes in spurts, after a long period of
+              silence. Just as modern architecture recently enjoyed a comeback,
+              brand architecture, a field with well-established principles for
+              decades</a
+            >
+          </p>
+        </div>
+        <div
+          class="mt-3 flex items-center space-x-3 text-gray-500 dark:text-gray-400"
+        >
+          <a href="/author/mario-sanchez"
+            ><div class="flex items-center gap-3">
+              <div class="relative h-5 w-5 flex-shrink-0">
+                <img
+                  alt="Mario Sanchez"
+                  loading="lazy"
+                  decoding="async"
+                  data-nimg="fill"
+                  class="rounded-full object-cover"
+                  sizes="20px"
+                  srcset="
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=16&amp;q=75     16w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=32&amp;q=75     32w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=48&amp;q=75     48w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=64&amp;q=75     64w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=96&amp;q=75     96w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=128&amp;q=75   128w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=256&amp;q=75   256w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=384&amp;q=75   384w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=640&amp;q=75   640w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=750&amp;q=75   750w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=828&amp;q=75   828w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=1080&amp;q=75 1080w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=1200&amp;q=75 1200w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=1920&amp;q=75 1920w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=2048&amp;q=75 2048w,
+                    /_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=3840&amp;q=75 3840w
+                  "
+                  src="/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=3840&amp;q=75"
+                  style="
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                    inset: 0px;
+                    color: transparent;
+                  "
+                />
+              </div>
+              <span class="truncate text-sm">Mario Sanchez</span>
+            </div></a
+          ><span class="text-xs text-gray-300 dark:text-gray-600">•</span
+          ><time class="truncate text-sm" datetime="2022-10-21T15:48:00.000Z"
+            ><%= article.created_at %></time
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <% }); %>
+</div>
+<% } else { %>
+<p>No articles found.</p>
+<% } %>
