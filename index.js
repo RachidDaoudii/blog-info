@@ -6,13 +6,13 @@ const userRoutes = require('./routes/profile');
 const articleRoutes = require('./routes/articles');
 const commentsRoutes = require('./routes/comments');
 const methodOverride = require('method-override');
-// const csrf = require('csurf');
+const csrf = require('csurf');
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 // Initialize the CSRF middleware and make it available to your routes
-// const csrfProtection = csrf({ cookie: true });
-// app.use(csrfProtection);
+const csrfProtection = csrf({ cookie: true });
+app.use(csrfProtection);
 
 // Use method-override middleware
 app.use(methodOverride('_method'));
@@ -42,10 +42,10 @@ app.use(layoutEjs);
 app.set('view engine', 'ejs');
 app.set('views', './public/views');
 
-// app.use((req, res, next) => {
-//     res.locals.csrfToken = req.csrfToken();
-//     next();
-// });
+app.use((req, res, next) => {
+    res.locals.csrfToken = req.csrfToken();
+    next();
+});
 
 
 
