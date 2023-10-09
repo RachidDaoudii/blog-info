@@ -21,6 +21,7 @@
             <% } %>
         </div>
         <form  id="updateForm" method="post" action="/user/profile/<%= user.id%>" enctype="multipart/form-data">
+
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <input class="border" type="text" name="name" value="<%= user.name%>">
             <input class="border"  type="text" name="email" value="<%= user.email%>">
