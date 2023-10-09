@@ -26,9 +26,8 @@ class ArticleController {
     static async show(req,res) {
 
         try {
-
             const article = await modelsArticles.show(req,res);
-            res.render('article/showArticle', { article });
+            res.render('article/showArticle', { article});
 
         } catch (error) {
             console.error('Error fetching articles:', error);
