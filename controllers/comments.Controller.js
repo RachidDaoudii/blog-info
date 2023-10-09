@@ -33,7 +33,7 @@ class CommentController {
     }
 
     static async deleteComment(req,res) {
-            await modelsComments.delete(req);
+            await modelsComments.deleteComment(req);
             res.redirect('/comment');
     }
 }
