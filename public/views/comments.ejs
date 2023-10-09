@@ -14,17 +14,18 @@
             <div class="flex justify-between items-center mb-6">
               <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion (total number)</h2>
           </div>
-          <form class="mb-6">
+          
+          <form class="mb-6" action="/comment/addComment" method="post" >
               <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                   <label for="comment" class="sr-only">Your comment</label>
-                  <textarea id="comment" rows="6" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="Write a comment..." required>
-                    </textarea>
+                  <input id="comment" type="text" name="content" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="Write a comment..." required>
               </div>
               <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                   Post comment
               </button>
           </form>
-          <% comments.forEach((article,index) => { %>
+
+          <% comments.forEach((comment,index) => { %>
           <article class="p-6 text-base bg-white rounded-lg dark:bg-gray-900">
               <footer class="flex justify-between items-center mb-2">
                   <div class="flex items-center">
@@ -33,7 +34,7 @@
                     Michael Gough
                     </p>
                     <p class="text-sm text-gray-600 dark:text-gray-400">
-                    <time pubdate datetime="2022-02-08" title="">comments.created_at</time>
+                    <time pubdate datetime="2022-02-08" title=""><%=comment.created_at%></time>
                     </p>
                   </div>
                   <button id="dropdownComment1Button" data-dropdown-toggle="dropdownComment1" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
@@ -51,7 +52,7 @@
                       </ul>
                   </div>
               </footer>
-              <p class="text-gray-500 dark:text-gray-400">comments.content</p>
+              <p class="text-gray-500 dark:text-gray-400"><%=comment.content%></p>
           </article>
           <% }); %>
         </div>
