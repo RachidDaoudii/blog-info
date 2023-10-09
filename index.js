@@ -8,13 +8,13 @@ const commentsRoutes = require("./routes/comments");
 const pages = require("./routes");
 const methodOverride = require("method-override");
 const path = require("path");
-// const csrf = require("csurf");
+const csrf = require("csurf");
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
 // Initialize the CSRF middleware and make it available to your routes
-// const csrfProtection = csrf({ cookie: true });
-// app.use(csrfProtection);
+const csrfProtection = csrf({ cookie: true });
+app.use(csrfProtection);
 
 // Use method-override middleware
 app.use(methodOverride("_method"));
