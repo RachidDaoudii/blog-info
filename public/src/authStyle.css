@@ -1,16 +1,21 @@
-.body {
-    background-image: url(../images/istockphoto-1406927873-612x612.jpg);
-    background-repeat: no-repeat;
+body {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-left: 12rem;
-    height: 80vh;
+    padding: 10rem;
 }
 
 .register-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-right: 7rem;
+    background-image: url(../images/istockphoto-1406927873-612x612.jpg);
+    background-repeat: no-repeat;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    margin-right: 7rem !important;
+    margin-bottom: 10rem;
+}
+
+.input {
+    width: 10rem !important;
 }

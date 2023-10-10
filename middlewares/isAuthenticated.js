@@ -1,5 +1,4 @@
 class auth {
-
   static isAuthenticated = (req, res, next) => {
     console.log(req.body);
     if (req.cookies.loggedIn_user) {

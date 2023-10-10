@@ -109,6 +109,27 @@ class article {
       return res.status(404).send("Internal Server Error");
     }
   }
+
+  static async getArticleUser(req){
+    try {
+      const articles = await prisma.blog.findMany({
+        select:{
+          id: true,
+          title: true,
+          content: true,
+          image: true,
+          created_at: true,
+          updated_at: true,
+        },where:{
+          user_id: parseInt(req.cookies.loggedIn_user)
+        }
+      });
+      return articles;
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+      return res.status(404).send("Internal Server Error");
+    }
+  }
 }
 
 module.exports = article;

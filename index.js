@@ -43,6 +43,5 @@ app.use("/article", articleRoutes);
 app.use("/comment", commentsRoutes);
 app.use("/", pages);
 app.use('/auth', authRouter)
-
 const port = 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
