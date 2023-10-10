@@ -1,4 +1,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"  rel="stylesheet" />
+
+
 <div class="mx-auto max-w-screen-md">
   <div class="flex justify-center">
     <div class="flex gap-3">
@@ -82,10 +84,10 @@
               <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion (<%=article.Comment.length%>)</h2>
           </div>
           
-          <form class="mb-6" action="/comment/addComment" method="post" >
+          <form class="mb-6" action="/comment/addComment" method="post" id="demo-form" data-parsley-validate="">
               <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                   <label for="comment" class="sr-only">Your comment</label>
-                  <input id="comment" type="text" name="content" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="Write a comment..." required>
+                  <textarea id="comment" name="content" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 " rows="1" placeholder="Write a comment..." required="" data-parsley-required-message="Comment is Required"></textarea>
               </div>
               <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                   Post comment
@@ -159,4 +161,21 @@
       document.querySelector("#form-"+cmtID).setAttribute('class', 'block');
       // console.log(document.querySelector("#cmt-input-"+cmtID).value)
     }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/guillaumepotier/Parsley.js@2.9.2/dist/parsley.js"></script>
+
+<script>
+  $(function() {
+     $('#demo-form').parsley().on('field:validated', function() {
+        var ok = $('.parsley-error').length === 0;
+        $('.bs-callout-info').toggleClass('hidden', !ok);
+        $('.bs-callout-warning').toggleClass('hidden', ok);
+        
+        // Add CSS to set text color to red for .parsley-errors-list
+        $('.parsley-errors-list').css('color', 'red');
+     })
+     
+  });
 </script>
