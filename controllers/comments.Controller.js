@@ -15,7 +15,7 @@ class CommentController {
     static async storeComment(req,res) {
         try {
             await modelsComments.createComment(req);
-            res.redirect('/comment');
+            res.redirect('back');
 
         } catch (error) {
             console.error('Error fetching comments:', error);
@@ -26,7 +26,7 @@ class CommentController {
     static async updateComment(req,res) {
         try {
             await modelsComments.updateComment(req);
-            res.redirect('/comment');
+            res.redirect('back');
 
         } catch (error) {
             console.error('Error fetching comments:', error);
@@ -38,7 +38,7 @@ class CommentController {
         // console.log(req.params.id);
         // console.log(req.body);
             await modelsComments.deleteComment(req);
-            res.redirect('/comment');
+            res.redirect('back');
     }
 }
 
