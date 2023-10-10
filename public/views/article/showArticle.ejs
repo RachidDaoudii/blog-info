@@ -86,6 +86,7 @@
           
           <form class="mb-6" action="/comment/addComment" method="post" id="demo-form" data-parsley-validate="">
               <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                <input type="hidden" name="articleId" value="<%= article.id %>">
                   <label for="comment" class="sr-only">Your comment</label>
                   <textarea id="comment" name="content" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 " rows="1" placeholder="Write a comment..." required="" data-parsley-required-message="Comment is Required"></textarea>
               </div>
@@ -100,14 +101,16 @@
               <footer class="flex justify-between items-center mb-2">
                   <div class="flex items-center">
                     <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
-                    <img class="mr-2 w-6 h-6 rounded-full" src="" alt="Michael Gough">
+                    <img class="mr-2 w-6 h-6 rounded-full" src="../../images/<%= comment.User.image %>" alt="Michael Gough">
                     <%=comment.User.name%>
                     </p>
                     <p class="text-sm text-gray-600 dark:text-gray-400">
                     <time pubdate datetime="2022-02-08" title=""><%=comment.created_at.toLocaleString()%></time>
                     </p>
                   </div>
-                  
+                  <% if (loggedInUser == comment.User.id) { %>
+                    
+                   
                             <div class="inline-flex items-center ">
                                 <div class="mr-1">
                                     <button onclick="showComment('<%=comment.id%>')">
@@ -127,6 +130,8 @@
                                 </form>
                             </div>
                         </div>
+
+                        <% }  %>
                           
                     </footer>
                     <form id="form-<%=comment.id%>" action="/comment/updateComment/<%= comment.id %>" method="post" class="hidden">
