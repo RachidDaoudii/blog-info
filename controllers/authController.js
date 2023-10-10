@@ -7,11 +7,11 @@ const validateFormUser = require('../requests/formUser');
 class AuthController {
 
     static async index(req, res) {
-        return await res.render('auth/login')
+        return await res.render('auth/login', { includeHeaderFooter: false })
     }
 
     static async register(req, res) {
-        return await res.render('auth/register')
+        return await res.render('auth/register', { includeHeaderFooter: false })
     }
 
     static async signup(req, res) {
