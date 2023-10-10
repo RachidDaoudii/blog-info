@@ -1,4 +1,6 @@
 const modelsComments = require('../models/comments.models')
+const validation = require('../requests/commentInput');
+
 
 class CommentController {
     static async index(req, res) {
