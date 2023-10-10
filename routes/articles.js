@@ -26,5 +26,6 @@ router.post(
   ControllerArticle.update
 );
 router.delete("/delete/:id", isAuth.isAuthenticated, ControllerArticle.delete);
+router.get('/dashborad',isAuth.isAuthenticated ,ControllerArticle.dashboard)
 
 module.exports = router;
