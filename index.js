@@ -32,10 +32,12 @@ app.use(layoutEjs);
 app.set("view engine", "ejs");
 app.set("views", "./public/views");
 
-// app.use((req, res, next) => {
-//     res.locals.csrfToken = req.csrfToken();
-//     next();
-// });
+app.use((req, res, next) => {
+    let loggedInUser = req.cookies.loggedIn_user;
+    res.locals.loggedInUser = loggedInUser || null;
+    next();
+});
+
 
 // routes
 app.use("/user", userRoutes);
