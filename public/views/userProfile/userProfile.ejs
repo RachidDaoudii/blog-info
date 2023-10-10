@@ -1,35 +1,22 @@
-<!-- do some html-->
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Blog-Info</title>
-        <link href="src/style.css" rel="stylesheet" >
-    </head>
-    <body>
-<!--        use ejs-->
-        <h1 class="text-4xl text-amber-950">hello</h1>
-        <div>
-            <% if (successMessage) { %>
-                <div class="alert alert-success">
-                    <%= successMessage %>
-                </div>
-            <% } %>
-            <% if (errorMessage) { %>
-                <div class="alert alert-danger">
-                    <%= errorMessage %>
-                </div>
-            <% } %>
+<div>
+    <% if (successMessage) { %>
+        <div class="alert alert-success">
+            <%= successMessage %>
         </div>
-        <form  id="updateForm" method="post" action="/user/profile/<%= user.id%>" enctype="multipart/form-data">
-
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <input class="border" type="text" name="name" value="<%= user.name%>">
-            <input class="border"  type="text" name="email" value="<%= user.email%>">
-            <input class="border"  type="file" id="profileImage" name="profileImage" >
-            <input class="border"  type="submit" name="submit" value="Submit">
-        </form>
-    </body>
-    <script>
-
-    </script>
-</html>
+    <% } %>
+    <% if (errorMessage) { %>
+        <div class="alert alert-danger">
+            <%= errorMessage %>
+        </div>
+    <% } %>
+</div>
+<form id="updateForm" method="post" action="/user/profile/<%= user.id%>" enctype="multipart/form-data" class="flex flex-col justify-center items-center w-full max-w-md mx-auto">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" class="hidden">
+    <input type="text" name="name" value="<%= user.name%>" class="w-full mb-4 border border-gray-300 rounded px-4 py-2 focus:outline-none">
+    <input type="text" name="email" value="<%= user.email%>" class="w-full mb-4 border border-gray-300 rounded px-4 py-2 focus:outline-none">
+    <input type="file" name="profileImage" class="w-full mb-4 border border-gray-300 rounded px-4 py-2 focus:outline-none">
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none">Submit</button>
+    <% if (user.image) { %>
+        <img src="../../images/<%= user.image %>" alt="Profile image" class="w-40 h-40 rounded-full mx-auto my-4">
+    <% } %>
+</form>
