@@ -4,8 +4,14 @@ const validateFormUser = require('../requests/formUser');
 
 const getUserProfile = async (req, res) => {
 
+    // check if user is logged in
+    const loggedInUser = req.cookies.loggedIn_user;
+    const { userId } = req.params;
+    if (userId !== loggedInUser) {
+        return res.status(403).send('You are not authorized to view this profile');
+    }
     try {
-        const { userId } = req.params;
+
         // Check if there's a success message
         const errorMessage = req.session.errorMessage;
         const successMessage = req.session.successMessage;
@@ -20,7 +26,7 @@ const getUserProfile = async (req, res) => {
         // Clear the messages from the session
         req.session.errorMessage = null;
         req.session.successMessage = null;
-        res.render('userProfile/userProfile', { user, successMessage, errorMessage });
+        res.render('userProfile/userProfile', { user, successMessage, errorMessage ,blockLayout: false  });
     } catch (error) {
         console.log(error.message);
         res.status(500).send(error.message);
