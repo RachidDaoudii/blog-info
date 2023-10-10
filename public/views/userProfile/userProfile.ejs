@@ -1,22 +1,56 @@
 <div>
     <% if (successMessage) { %>
-        <div class="alert alert-success">
-            <%= successMessage %>
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 transition-opacity ease-in-out duration-300 transform hover:scale-105" role="alert">
+            <h3 class="font-semibold">Success!</h3>
+            <p>
+                <%= successMessage %>
+            </p>
         </div>
     <% } %>
     <% if (errorMessage) { %>
-        <div class="alert alert-danger">
-            <%= errorMessage %>
-        </div>
-    <% } %>
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 transition-opacity ease-in-out duration-300 transform hover:scale-105" role="alert">
+                <p class="font-bold">Error!</p>
+                <p>
+                    <%= errorMessage %>
+                </p>
+            </div>
+        <% } %>
 </div>
 <form id="updateForm" method="post" action="/user/profile/<%= user.id%>" enctype="multipart/form-data" class="flex flex-col justify-center items-center w-full max-w-md mx-auto">
     <input type="hidden" name="_csrf" value="<%= csrfToken %>" class="hidden">
-    <input type="text" name="name" value="<%= user.name%>" class="w-full mb-4 border border-gray-300 rounded px-4 py-2 focus:outline-none">
-    <input type="text" name="email" value="<%= user.email%>" class="w-full mb-4 border border-gray-300 rounded px-4 py-2 focus:outline-none">
-    <input type="file" name="profileImage" class="w-full mb-4 border border-gray-300 rounded px-4 py-2 focus:outline-none">
-    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none">Submit</button>
-    <% if (user.image) { %>
-        <img src="../../images/<%= user.image %>" alt="Profile image" class="w-40 h-40 rounded-full mx-auto my-4">
-    <% } %>
+
+    <div class="w-full">
+        <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+        <input type="text" name="name" value="<%= user.name%>" class="w-full mb-4 border border-gray-300 rounded px-4 py-2 focus:outline-none">
+    </div>
+    <div class="w-full">
+        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+        <input type="text" name="email" value="<%= user.email%>" class="w-full mb-4 border border-gray-300 rounded px-4 py-2 focus:outline-none">
+    </div>
+    <div class="w-full">
+        <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Image</label>
+        <input id="image-input" type="file" name="profileImage" class="w-full mb-4 border border-gray-300 rounded px-4 py-2 focus:outline-none">
+    </div>
+    <div class="flex justify-between w-full items-center">
+        <div class="w-40 h-40 bg-amber-500 border border-dashed border-black">
+            <img id="image-preview" class="w-full h-full"
+                 src="../../images/<%= user.image %>" alt="user-image">
+        </div>
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none">Submit</button></div>
+
 </form>
+<script>
+    const imageInput = document.getElementById('image-input');
+    const imagePreview = document.getElementById('image-preview');
+
+    imageInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+
+        // Create an object URL for the image file
+        const objectURL = URL.createObjectURL(file);
+        console.log(objectURL)
+
+        // Set the image element's src attribute to the object URL
+        imagePreview.src = objectURL;
+    });
+</script>
