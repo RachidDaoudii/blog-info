@@ -70,7 +70,7 @@ class ArticleController {
         }
     }
 
-    static async delete(req, res) {
+    static async edit(req, res) {
 
         try {
             const article = await modelsArticles.show(req, res);

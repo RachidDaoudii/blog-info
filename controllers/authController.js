@@ -53,8 +53,8 @@ class AuthController {
                 return res.status(401).send('Invalid password.');
             }
 
+            res.cookie('loggedIn_user', user.id, { httpOnly: true });
             // TODO: Generate and send a token for authentication (you can use JWT)
-
             res.send('Login successful.');
         } catch (error) {
             console.error('Error during login:', error.message);
