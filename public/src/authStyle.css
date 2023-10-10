@@ -1,4 +1,16 @@
 .body {
     background-image: url(../images/istockphoto-1406927873-612x612.jpg);
     background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 12rem;
+    height: 80vh;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 7rem;
 }
