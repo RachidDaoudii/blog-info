@@ -53,23 +53,22 @@ class article {
                 },
               },
             },
-            orderBy:{
-                created_at:"desc"
-            }
+            orderBy: {
+              created_at: "desc",
+            },
           },
-          User:{
-            select:{
-              id:true,
-              name:true,
-              image:true,
-            }
-          }
+          User: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
         },
         where: {
           id: parseInt(req.params.id),
         },
       });
-      console.log(article);
       return article;
     } catch (error) {
       console.error("Error fetching articles:", error);
