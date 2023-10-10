@@ -14,10 +14,9 @@ const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 // app.use(bodyParser.urlencoded({ extended: false }));
 
-
 // Use method-override middleware
-app.use(methodOverride('_method'));
-app.use(express.static('public'));
+app.use(methodOverride("_method"));
+app.use(express.static("public"));
 app.use(express.json()); // Parse JSON requests
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded requests
 // Configure session middleware
