@@ -20,7 +20,7 @@ class article {
           title: req.body.title,
           content: req.body.content,
           image: req.file.filename,
-          user_id: 1,
+          user_id: parseInt(req.cookies.loggedIn_user),
         },
       });
       return articles;
