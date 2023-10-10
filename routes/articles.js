@@ -10,12 +10,12 @@ const checkTekon = (req, res, next) => {
     next();
 }
 
-// router.get('/', ControllerArticle.index)
-// router.get('/add', checkTekon, ControllerArticle.add)
-// router.post('/add', imageHelper.upload.single('image'), ControllerArticle.store);
-// router.get('/show/:id', ControllerArticle.show);
-// router.get('/edit/:id', ControllerArticle.edit);
-// router.post('/update/:id', imageHelper.upload.single('image'), ControllerArticle.update);
-// router.delete('/delete/:id', ControllerArticle.delete);
+router.get('/', ControllerArticle.index)
+router.get('/add', ControllerArticle.add)
+router.post('/add', imageHelper.upload.single('image'), ControllerArticle.store);
+router.get('/show/:id', ControllerArticle.show);
+router.get('/edit/:id', ControllerArticle.edit);
+router.post('/update/:id', imageHelper.upload.single('image'), ControllerArticle.update);
+router.delete('/delete/:id', ControllerArticle.delete);
 
 module.exports = router;
