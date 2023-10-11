@@ -144,6 +144,9 @@
               name="user_id"
               value="<%= article.User_id %>"
             />
+
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" class="hidden" />
+
             <button
               type="submit"
               class="font-medium text-blue-600 dark:text-blue-500 hover:underline"

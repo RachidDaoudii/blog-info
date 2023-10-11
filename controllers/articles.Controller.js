@@ -15,7 +15,7 @@ class ArticleController {
       res.render("article/AllArticle", {
         articles,
         successMessage: ArticleController.successMessage,
-        loggedInUser: loggedInUser
+        loggedInUser: loggedInUser,
       });
     } catch (error) {
       console.error("Error fetching articles:", error);
@@ -49,6 +49,12 @@ class ArticleController {
     try {
       const check = validation.validateInput(req);
 
+      const csrfToken = req.body._csrf;
+      const csrfCookie = req.cookies.csrfToken;
+      if (csrfToken !== csrfCookie) {
+        return res.send("CSRF token is invalid");
+      }
+
       if (check.error) {
         ArticleController.errorMessage = "All is required";
         return res.status(400).render("article/addArticle", {
@@ -58,7 +64,9 @@ class ArticleController {
 
       await modelsArticles.create(req);
       ArticleController.successMessage = "Article Added Successfully";
-      ArticleController.dashboard(req, res);
+
+      return res.redirect("/article/dashborad");
+
     } catch (error) {
       ArticleController.errorMessage = error;
       res.status(400).render("article/addArticle", {
@@ -79,6 +87,12 @@ class ArticleController {
 
   static async update(req, res) {
     try {
+      const csrfToken = req.body._csrf;
+      const csrfCookie = req.cookies.csrfToken;
+      if (csrfToken !== csrfCookie) {
+        return res.send("CSRF token is invalid");
+      }
+
       if (!req.file) {
         req.body.image = req.body.old_image;
       } else {
@@ -88,7 +102,8 @@ class ArticleController {
 
       const articles = await modelsArticles.update(req);
       ArticleController.successMessage = "Article updated Successfully";
-      ArticleController.dashboard(req, res);
+      return res.redirect("/article/dashborad");
+
     } catch (error) {
       console.error("Error fetching articles:", error);
       return res.status(404).send("Internal Server Error");
@@ -97,10 +112,17 @@ class ArticleController {
 
   static async delete(req, res) {
     try {
+      const csrfToken = req.body._csrf;
+      const csrfCookie = req.cookies.csrfToken;
+      console.log(csrfCookie, csrfToken);
+      if (csrfToken !== csrfCookie) {
+        return res.send("CSRF token is invalid");
+      }
+
       const article = await modelsArticles.delete(req);
       await unlink.unlinkimage(article.image);
       ArticleController.successMessage = "Article Deleted Successfully";
-      ArticleController.dashboard(req, res);
+      return res.redirect("/article/dashborad");
     } catch (error) {
       console.error("Error fetching articles:", error);
       return res.status(404).send("Internal Server Error");
