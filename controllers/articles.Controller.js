@@ -1,7 +1,6 @@
 const modelsArticles = require("../models/article.models");
 const unlink = require("../helpers/imageHelper");
 const validation = require("../requests/requestArticle");
-const imageHelper = require("../helpers/imageHelper");
 
 class ArticleController {
   static errorMessage = null;
@@ -57,12 +56,7 @@ class ArticleController {
 
       await modelsArticles.create(req);
       ArticleController.successMessage = "Article Added Successfully";
-      const articles = await modelsArticles.getAll();
-
-      res.status(201).render("article/AllArticle", {
-        articles,
-        successMessage: ArticleController.successMessage,
-      });
+      ArticleController.dashboard(req, res);
     } catch (error) {
       ArticleController.errorMessage = error;
       res.status(400).render("article/addArticle", {
@@ -91,7 +85,8 @@ class ArticleController {
       }
 
       const articles = await modelsArticles.update(req);
-      res.redirect("/article");
+      ArticleController.successMessage = "Article updated Successfully";
+      ArticleController.dashboard(req, res);
     } catch (error) {
       console.error("Error fetching articles:", error);
       return res.status(404).send("Internal Server Error");
@@ -103,7 +98,7 @@ class ArticleController {
       const article = await modelsArticles.delete(req);
       await unlink.unlinkimage(article.image);
       ArticleController.successMessage = "Article Deleted Successfully";
-      res.redirect("/article");
+      ArticleController.dashboard(req, res);
     } catch (error) {
       console.error("Error fetching articles:", error);
       return res.status(404).send("Internal Server Error");
@@ -112,7 +107,11 @@ class ArticleController {
 
   static async dashboard(req, res) {
     const articles = await modelsArticles.getArticleUser(req);
-    return res.render("article/dashboard", { articles });
+    return res.render("article/dashboard", {
+      articles,
+      successMessage: ArticleController.successMessage,
+      errorMessage: ArticleController.errorMessage,
+    });
   }
 }
 
