@@ -103,7 +103,7 @@
                     <img class="mr-2 w-6 h-6 rounded-full" src="../../images/<%= comment.User.image %>" alt="Michael Gough">
                     <%=comment.User.name%>
                     </p>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                    <p class="text-sm text-gray-600 dark:text-gray-400 hidden sm:block">
                     <time pubdate datetime="2022-02-08" title=""><%=comment.created_at.toLocaleString()%></time>
                     </p>
                   </div>
@@ -151,7 +151,7 @@
     <div class="mb-7 mt-7 flex justify-center">
       <a
         class="bg-brand-secondary/20 rounded-full px-5 py-2 text-sm text-blue-600 dark:text-blue-500"
-        href="/"
+        href="/article"
         >← View all posts</a
       >
     </div>
@@ -160,10 +160,10 @@
 
 <script>
   function showComment(cmtID){
-      document.querySelector("#cmt-txt-"+cmtID).setAttribute('class', 'hidden');
-      document.querySelector("#cmt-input-"+cmtID).value = document.querySelector("#cmt-txt-"+cmtID).innerHTML
-      document.querySelector("#form-"+cmtID).setAttribute('class', 'block');
-      // console.log(document.querySelector("#cmt-input-"+cmtID).value)
+    document.querySelector("#cmt-txt-"+cmtID).setAttribute('class', 'hidden');
+    document.querySelector("#cmt-input-"+cmtID).value = document.querySelector("#cmt-txt-"+cmtID).innerHTML
+    document.querySelector("#form-"+cmtID).setAttribute('class', 'block');
+    // console.log(document.querySelector("#cmt-input-"+cmtID).value)
   }
 </script>
 
