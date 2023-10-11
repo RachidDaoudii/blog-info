@@ -54,7 +54,7 @@ class AuthController {
             }
 
             res.cookie('loggedIn_user', user.id, { httpOnly: true });
-
+            // TODO: Generate and send a token for authentication (you can use JWT)
             return res.redirect('/article');
         } catch (error) {
             console.error('Error during login:', error.message);
