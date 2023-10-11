@@ -19,8 +19,8 @@ class comments{
             const comments = await prisma.comment.create({
                 data : {
                     content : req.body.content,
-                    user_id: 1,
-                    blog_id: 1
+                    user_id: parseInt(req.cookies.loggedIn_user),
+                    blog_id: parseInt(req.body.articleId),
                 }
             });
             return comments
