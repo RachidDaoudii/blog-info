@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client');
+const {PrismaClient} = require('@prisma/client');
 const prisma = new PrismaClient();
 const validateFormUser = require('../requests/formUser');
 
@@ -6,7 +6,7 @@ const getUserProfile = async (req, res) => {
 
     // check if user is logged in
     const loggedInUser = req.cookies.loggedIn_user;
-    const { userId } = req.params;
+    const {userId} = req.params;
     if (userId !== loggedInUser) {
         return res.status(403).send('You are not authorized to view this profile');
     }
@@ -20,13 +20,13 @@ const getUserProfile = async (req, res) => {
                 id: parseInt(userId)
             }
         });
-        if(!user){
+        if (!user) {
             return res.status(404).send('User not found.');
         }
         // Clear the messages from the session
         req.session.errorMessage = null;
         req.session.successMessage = null;
-        res.render('userProfile/userProfile', { user, successMessage, errorMessage ,blockLayout: false  });
+        res.render('userProfile/userProfile', {user, successMessage, errorMessage, blockLayout: false});
     } catch (error) {
         console.log(error.message);
         res.status(500).send(error.message);
@@ -42,11 +42,11 @@ const updateUserProfile = async (req, res) => {
         return res.send('CSRF token is invalid');
     }
 
-    let { userId } = req.params;
+    let {userId} = req.params;
     let loggedInUser = req.cookies.loggedIn_user;
     if (userId !== loggedInUser) {
         return res.status(403).send('You are not authorized to update this profile');
-    }else{
+    } else {
         console.log('User is authorized to update this profile');
     }
     // check error
@@ -72,27 +72,25 @@ const updateUserProfile = async (req, res) => {
         const updatedProfileData = req.body;
         // Update the user's name and email
         const updatedUser = await prisma.user.update({
-            where: { id: parseInt(userId) },
-            data: {
-                name: updatedProfileData.name,
-                email: updatedProfileData.email,
+            where: {id: parseInt(userId)}, data: {
+                name: updatedProfileData.name, email: updatedProfileData.email,
             },
         });
         // Check if an image file was uploaded
         if (req.file) {
             // Update the user's profile image
             await prisma.user.update({
-                where: { id: parseInt(userId) },
-                data: {
+                where: {id: parseInt(userId)}, data: {
                     image: req.file.filename, // Assuming you're storing the filename in the database
                 },
             });
         }
+        console.log(userId);
 
         // Redirect the user to the profile page with a success message
         req.session.successMessage = 'Profile updated successfully';
         res.redirect(`/user/profile/${userId}`);
-    }catch (error) {
+    } catch (error) {
         console.log(error.message);
         res.redirect(`/user/profile/${userId}?error=1`);
     }
@@ -101,15 +99,14 @@ const updateUserProfile = async (req, res) => {
 
 const getLoggedInUser = async (req, res) => {
 //     // Get the user ID from the cookie
-     const userId = req.cookies.loggedIn_user;
-     const user = await prisma.user.findUnique({
-            where: { id: parseInt(userId) },
-     });
-        return user;
+    const userId = req.cookies.loggedIn_user;
+    const user = await prisma.user.findUnique({
+        where: {id: parseInt(userId)},
+    });
+    return user;
 };
 
 
 module.exports = {
-    getUserProfile,
-    updateUserProfile
+    getUserProfile, updateUserProfile
 };
