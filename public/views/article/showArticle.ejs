@@ -27,7 +27,7 @@
             data-nimg="fill"
             class="rounded-full object-cover"
             sizes="40px"
-            src="/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Fcijrdavx%2Fproduction%2F4a21e3f085ed310d00fbbd294eb2392cde7f9acc-3648x3648.jpg%3Fw%3D2000%26auto%3Dformat&amp;w=3840&amp;q=75"
+            src="../../images/<%= article.User.image%>"
             style="
               position: absolute;
               height: 100%;
@@ -39,7 +39,7 @@
       </div>
       <div>
         <p class="text-gray-800 dark:text-gray-400">
-          <a href="/author/mario-sanchez">Mario Sanchez</a>
+          <a href="/author/mario-sanchez"><%= article.User.name%></a>
         </p>
         <div class="flex items-center space-x-2 text-sm">
           <time
@@ -53,7 +53,7 @@
   </div>
 </div>
 <div
-  class="relative z-0 mx-auto aspect-video max-w-screen-lg overflow-hidden lg:rounded-lg"
+  class="relative z-0 mx-auto aspect-video max-w-screen-lg overflow-hidden lg:rounded-lg mt-8"
 >
   <img
     alt="Thumbnail"
