@@ -23,7 +23,7 @@ class User {
                 name: this.name,
                 email: this.email,
                 password: this.password,
-                image: 'jhfdjh',
+                image: 'default.png',
             },
         });
     }

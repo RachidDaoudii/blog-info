@@ -32,10 +32,12 @@ app.use(layoutEjs);
 app.set("view engine", "ejs");
 app.set("views", "./public/views");
 
-// app.use((req, res, next) => {
-//     res.locals.csrfToken = req.csrfToken();
-//     next();
-// });
+app.use((req, res, next) => {
+    let loggedInUser = req.cookies.loggedIn_user;
+    res.locals.loggedInUser = loggedInUser || null;
+    next();
+});
+
 
 // routes
 app.use("/user", userRoutes);
@@ -43,6 +45,5 @@ app.use("/article", articleRoutes);
 app.use("/comment", commentsRoutes);
 app.use("/", pages);
 app.use('/auth', authRouter)
-
 const port = 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
