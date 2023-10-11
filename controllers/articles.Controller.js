@@ -12,25 +12,17 @@ class ArticleController {
             const articles = await modelsArticles.getAll();
             ArticleController.successMessage = null;
 
-<<<<<<< HEAD
-            res.render("article/AllArticle", {
-                articles, successMessage: ArticleController.successMessage, loggedInUser: loggedInUser
-            });
-        } catch (error) {
-            console.error("Error fetching articles:", error);
-            return res.status(404).send("Internal Server Error");
-        }
-=======
+
       res.render("article/AllArticle", {
         articles,
         successMessage: ArticleController.successMessage,
         loggedInUser: loggedInUser,
       });
-    } catch (error) {
-      console.error("Error fetching articles:", error);
-      return res.status(404).send("Internal Server Error");
->>>>>>> e4e103a99212d9d9916d0607b66e0518acdc71d1
-    }
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+        return res.status(404).send("Internal Server Error");
+      }
+  }
 
     static async show(req, res) {
         try {
@@ -58,28 +50,6 @@ class ArticleController {
         try {
             const check = validation.validateInput(req);
 
-<<<<<<< HEAD
-            if (check.error) {
-                ArticleController.errorMessage = "All is required";
-                return res.status(400).render("article/addArticle", {
-                    errorMessage: ArticleController.errorMessage,
-                });
-            }
-
-            await modelsArticles.create(req);
-            ArticleController.successMessage = "Article Added Successfully";
-            const articles = await modelsArticles.getAll();
-
-            res.status(201).render("article/AllArticle", {
-                articles, successMessage: ArticleController.successMessage,
-            });
-        } catch (error) {
-            ArticleController.errorMessage = error;
-            res.status(400).render("article/addArticle", {
-                errorMessage: ArticleController.errorMessage,
-            });
-        }
-=======
       const csrfToken = req.body._csrf;
       const csrfCookie = req.cookies.csrfToken;
       if (csrfToken !== csrfCookie) {
@@ -103,8 +73,9 @@ class ArticleController {
       res.status(400).render("article/addArticle", {
         errorMessage: ArticleController.errorMessage,
       });
->>>>>>> e4e103a99212d9d9916d0607b66e0518acdc71d1
+      
     }
+  }
 
     static async edit(req, res) {
         try {
@@ -116,23 +87,7 @@ class ArticleController {
         }
     }
 
-<<<<<<< HEAD
-    static async update(req, res) {
-        try {
-            if (!req.file) {
-                req.body.image = req.body.old_image;
-            } else {
-                req.body.image = req.file.filename;
-                await unlink.unlinkimage(req.body.old_image);
-            }
 
-            const articles = await modelsArticles.update(req);
-            res.redirect("/article");
-        } catch (error) {
-            console.error("Error fetching articles:", error);
-            return res.status(404).send("Internal Server Error");
-        }
-=======
   static async update(req, res) {
     try {
       const csrfToken = req.body._csrf;
@@ -155,21 +110,10 @@ class ArticleController {
     } catch (error) {
       console.error("Error fetching articles:", error);
       return res.status(404).send("Internal Server Error");
->>>>>>> e4e103a99212d9d9916d0607b66e0518acdc71d1
+    }
     }
 
-<<<<<<< HEAD
-    static async delete(req, res) {
-        try {
-            const article = await modelsArticles.delete(req);
-            await unlink.unlinkimage(article.image);
-            ArticleController.successMessage = "Article Deleted Successfully";
-            res.redirect("/article");
-        } catch (error) {
-            console.error("Error fetching articles:", error);
-            return res.status(404).send("Internal Server Error");
-        }
-=======
+
   static async delete(req, res) {
     try {
       const csrfToken = req.body._csrf;
@@ -186,15 +130,9 @@ class ArticleController {
     } catch (error) {
       console.error("Error fetching articles:", error);
       return res.status(404).send("Internal Server Error");
->>>>>>> e4e103a99212d9d9916d0607b66e0518acdc71d1
     }
+  }
 
-<<<<<<< HEAD
-    static async dashboard(req, res) {
-        const articles = await modelsArticles.getArticleUser(req);
-        return res.render("article/dashboard", {articles});
-    }
-=======
   static async dashboard(req, res) {
     const articles = await modelsArticles.getArticleUser(req);
     return res.render("article/dashboard", {
@@ -203,8 +141,7 @@ class ArticleController {
       errorMessage: ArticleController.errorMessage,
     });
   }
->>>>>>> e4e103a99212d9d9916d0607b66e0518acdc71d1
-}
+  }
 
 module.exports = {
     index: ArticleController.index,
