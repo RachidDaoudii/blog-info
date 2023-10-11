@@ -12,21 +12,18 @@ const app = express();
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
-// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Use method-override middleware
 app.use(methodOverride("_method"));
 app.use(express.static("public"));
 app.use(express.json()); // Parse JSON requests
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded requests
+app.use(express.urlencoded({extended: true})); // Parse URL-encoded requests
 // Configure session middleware
-app.use(
-    session({
-        secret: "any secret key", // hadi khassha tbdel darori bch t3ml session dyalk secure
-        resave: false,
-        saveUninitialized: true,
-    })
-);
+app.use(session({
+    secret: "any secret key", // hadi khassha tbdel darori bch t3ml session dyalk secure
+    resave: false, saveUninitialized: true,
+}));
 // Set EJS as the view engine
 app.use(layoutEjs);
 app.set("view engine", "ejs");

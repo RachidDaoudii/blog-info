@@ -49,6 +49,7 @@
 <% } %>
 
 <form action="/article/add" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>" class="hidden" />
   <div class="mb-4">
     <input
       type="text"
