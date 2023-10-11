@@ -64,7 +64,9 @@ class ArticleController {
 
       await modelsArticles.create(req);
       ArticleController.successMessage = "Article Added Successfully";
+
       return res.redirect("/article/dashborad");
+
     } catch (error) {
       ArticleController.errorMessage = error;
       res.status(400).render("article/addArticle", {
@@ -101,6 +103,7 @@ class ArticleController {
       const articles = await modelsArticles.update(req);
       ArticleController.successMessage = "Article updated Successfully";
       return res.redirect("/article/dashborad");
+
     } catch (error) {
       console.error("Error fetching articles:", error);
       return res.status(404).send("Internal Server Error");
