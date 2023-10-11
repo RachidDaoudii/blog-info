@@ -110,19 +110,20 @@ class article {
     }
   }
 
-  static async getArticleUser(req){
+  static async getArticleUser(req) {
     try {
       const articles = await prisma.blog.findMany({
-        select:{
+        select: {
           id: true,
           title: true,
           content: true,
           image: true,
           created_at: true,
           updated_at: true,
-        },where:{
-          user_id: parseInt(req.cookies.loggedIn_user)
-        }
+        },
+        where: {
+          user_id: parseInt(req.cookies.loggedIn_user),
+        },
       });
       return articles;
     } catch (error) {

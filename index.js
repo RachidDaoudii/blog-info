@@ -12,7 +12,7 @@ const app = express();
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
-// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Use method-override middleware
 app.use(methodOverride("_method"));
