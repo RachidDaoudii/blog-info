@@ -2,7 +2,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 100%;
+}
+
+.error-message {
+    text-align: start;
+    color: red;
 }
 
 .label_name {

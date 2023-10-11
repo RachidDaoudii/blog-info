@@ -1,12 +1,20 @@
 <div class="body__">
+
+
     <form action="/auth/login" method="post" class="register-form">
-        <h1 class="signup">login</h1>
-        <label for="" class="label_name">email </label><br>
-        <input type="text" name="email" class="input__"><br>
-        <label for="" class="label_name">password </label><br>
-        <input type="password" name="password" class="input__"><br>
-        <input type="submit" id="register_button" value="Login">
-        <p class="message">You dont have account? <a href="/auth/register">Sign Up</a></p>
+        <% if (errorMessage) { %>
+            <div class="error-message">
+                <%= errorMessage %>
+            </div>
+            <% } %>
+                <h1 class="signup">login</h1>
+                <label for="" class="label_name">email </label><br>
+                <input type="text" name="email" class="input__"><br>
+                <label for="" class="label_name">password </label><br>
+                <input type="password" name="password" class="input__"><br>
+                <input type="submit" id="register_button" value="Login">
+                <p class="message">You dont have account? <a href="/auth/register">Sign Up</a></p>
     </form>
+
 
 </div>

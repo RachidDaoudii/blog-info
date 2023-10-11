@@ -7,7 +7,7 @@ const validateFormUser = require('../requests/formUser');
 class AuthController {
 
     static async index(req, res) {
-        return await res.render('auth/login', { includeHeaderFooter: false })
+        return await res.render('auth/login', { errorMessage: '' }); // Provide an initial empty errorMessage
     }
 
     static async register(req, res) {
@@ -45,16 +45,16 @@ class AuthController {
             });
 
             if (!user) {
-                return res.status(404).send('User not found.');
+                return res.render('auth/login', { errorMessage: 'User not found !' });
             }
 
             const passwordMatch = await bcrypt.compare(password, user.password);
             if (!passwordMatch) {
-                return res.status(401).send('Invalid password.');
+                return res.render('auth/login', { errorMessage: 'Invalid password !' });
             }
 
             res.cookie('loggedIn_user', user.id, { httpOnly: true });
-            // TODO: Generate and send a token for authentication (you can use JWT)
+
             return res.redirect('/article');
         } catch (error) {
             console.error('Error during login:', error.message);
