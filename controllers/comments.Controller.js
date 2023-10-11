@@ -5,9 +5,6 @@ const validation = require('../requests/commentInput');
 
 class CommentController {
 
-    static errorMessage = null;
-    static successMessage = null;
-
     static async index(req, res) {
         try {
             const comments = await modelsComments.getAllComments();
@@ -24,9 +21,7 @@ class CommentController {
             const check = validation.validateInput(req);
 
             if (check.error) {
-                CommentController.errorMessage = "input is required";
                 return res.redirect('back');
-
             }
 
             await modelsComments.createComment(req);
@@ -39,7 +34,7 @@ class CommentController {
     }
 
     static async updateComment(req, res) {
-        console.log(req.body.updateContent);
+        // console.log(req.body.updateContent);
         try {
             if (req.body.updateContent === "") {
                 await modelsComments.deleteComment(req);
@@ -57,7 +52,6 @@ class CommentController {
 
     static async deleteComment(req,res) {
         // console.log(req.params.id);
-        // console.log(req.body);
             await modelsComments.deleteComment(req);
             res.redirect('back');
     }
