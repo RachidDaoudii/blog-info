@@ -5,7 +5,23 @@ const prisma = new PrismaClient();
 class article {
   static async getAll() {
     try {
-      const articles = await prisma.blog.findMany();
+      const articles = await prisma.blog.findMany({
+        select: {
+          id: true,
+          title: true,
+          content: true,
+          image: true,
+          created_at: true,
+          updated_at: true,
+          User: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+        }
+      });
       return articles;
     } catch (error) {
       console.error("Error fetching articles:", error);

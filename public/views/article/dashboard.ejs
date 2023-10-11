@@ -124,8 +124,8 @@
           <%= index+1 %>
         </th>
         <td class="px-6 py-4"><%= article.title %></td>
-        <td class="px-6 py-4"><%= article.image %></td>
-        <td class="px-6 py-4"><%= article.created_at %></td>
+        <td class="px-6 py-4"><img src="../../images/<%= article.image %>" width="60px" alt=""></td>
+        <td class="px-6 py-4"><%= article.created_at.toLocaleString() %></td>
         <td class="px-6 py-4 text-right">
           <a
             href="/article/edit/<%= article.id %>"
