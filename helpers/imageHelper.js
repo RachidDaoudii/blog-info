@@ -34,7 +34,6 @@ const unlinkimage = async (nameimage)=>{
         console.error('Erreur lors de la suppression de l\'image', err);
         return;
     }
-    console.log('Image supprimée avec succès');
     });
 }
 
