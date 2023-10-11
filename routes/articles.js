@@ -24,4 +24,5 @@ router.post(
 router.delete("/delete/:id", isAuth.isAuthenticated, ControllerArticle.delete);
 router.get("/dashborad", isAuth.isAuthenticated, generateCSRFToken, ControllerArticle.dashboard);
 
+
 module.exports = router;

@@ -9,7 +9,9 @@ class auth {
     }
   };
 
+
   static isAuthorization = (req, res, next) => {};
+
 }
 
 module.exports = auth;
