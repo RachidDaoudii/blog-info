@@ -2,7 +2,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 100%;
+}
+
+.error-message {
+    text-align: start;
+    color: red;
 }
 
 .label_name {
@@ -10,18 +16,19 @@
     width: 60%;
     margin-bottom: -1rem;
     font-size: large;
-    color: rgb(69, 67, 67);
+    color: rgb(117, 116, 116);
 }
 
 .signup {
     margin-bottom: 1.3rem;
     font-size: 2rem;
-    color: rgb(117, 116, 116);
+    color: rgb(69, 67, 67);
 }
 
 #register_button:hover {
     background-color: #ffffff;
-    color: black;
+    color: #7336FF;
+    border: 1px solid #7336FF;
 }
 
 .message {
@@ -61,7 +68,7 @@
     border-radius: 0.7rem !important;
 }
 
-.register-form input[type="submit"] {
+#register_button {
     padding: 10px 20px;
     background-color: #7336FF;
     color: white;
