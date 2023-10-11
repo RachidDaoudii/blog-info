@@ -1,12 +1,14 @@
-<div class="body">
-
-    <form action="/auth/signup" method="post">
-        <label for="">name</label><br>
-        <input type="text" class="bg-slate-300" name="name"><br>
-        <label for="">email</label><br>
-        <input type="text" class="bg-slate-300" name="email"><br>
-        <label for="">password</label><br>
-        <input type="text" class="bg-slate-300" name="password">
-        <input type="submit" value="Register">
+<div class="body__">
+    <form action="/auth/signup" method="post" class="register-form">
+        <h1 class="signup"> Sign Up</h1>
+        <label for="" class="label_name">name </label><br>
+        <input type="text" name="name" class="input__"><br>
+        <label for="" class="label_name">email </label><br>
+        <input type="text" name="email" class="input__"><br>
+        <label for="" class="label_name">password </label><br>
+        <input type="text" name="password" class="input__"><br>
+        <input type="submit" id="register_button" value="Register">
+        <p class="message">Already registered? <a href="/auth/">Sign In</a></p>
     </form>
+
 </div>

@@ -1,14 +1,12 @@
-<h1>this is login</h1>
+<div class="body__">
+    <form action="/auth/login" method="post" class="register-form">
+        <h1 class="signup">login</h1>
+        <label for="" class="label_name">email </label><br>
+        <input type="text" name="email" class="input__"><br>
+        <label for="" class="label_name">password </label><br>
+        <input type="text" name="password" class="input__"><br>
+        <input type="submit" id="register_button" value="Login">
+        <p class="message">You dont have account? <a href="/auth/register">Sign Up</a></p>
+    </form>
 
-<form action="/auth/login" method="post">
-  <label for="">email</label><br />
-  <input type="text" name="email" /><br />
-  <label for="">password</label><br />
-  <input type="text" name="password" />
-  <input type="submit" value="Login" />
-</form>
-<a href="/auth/register">go to register</a>
-
-
-
-
+</div>
