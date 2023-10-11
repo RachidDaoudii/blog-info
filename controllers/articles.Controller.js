@@ -62,7 +62,7 @@ class ArticleController {
 
       await modelsArticles.create(req);
       ArticleController.successMessage = "Article Added Successfully";
-
+      ArticleController.errorMessage = null;
       return res.redirect("/article/dashborad");
     } catch (error) {
       ArticleController.errorMessage = "All is required";
@@ -108,7 +108,6 @@ class ArticleController {
     try {
       const csrfToken = req.body._csrf;
       const csrfCookie = req.cookies.csrfToken;
-      console.log(csrfCookie, csrfToken);
       if (csrfToken !== csrfCookie) {
         return res.send("CSRF token is invalid");
       }
