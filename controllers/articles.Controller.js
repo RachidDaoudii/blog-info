@@ -8,12 +8,14 @@ class ArticleController {
 
   static async index(req, res) {
     try {
+      let loggedInUser = req.cookies.loggedIn_user;
       const articles = await modelsArticles.getAll();
       ArticleController.successMessage = null;
 
       res.render("article/AllArticle", {
         articles,
         successMessage: ArticleController.successMessage,
+        loggedInUser: loggedInUser
       });
     } catch (error) {
       console.error("Error fetching articles:", error);
