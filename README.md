@@ -27,5 +27,8 @@ As a Full Stack JavaScript specialist, we invite you to join our development tea
 
 ##### Commands to run project
 
-    1. npm install
-    2. 
+    1. install the project dependencies:   npm install
+    2. configure your darabase info in the env file
+    3. you should run migration:           npx prisma migrate dev 
+    4. run prismate client to map the models with the database tables: prisma generate
+    5. start the project:                  node index.js OR npm run dev
