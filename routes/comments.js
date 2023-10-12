@@ -5,6 +5,7 @@ const isAuth = require("../middlewares/isAuthenticated");
 
 
 router.get('/', CommentsController.index)
+router.get('/profile/:name', CommentsController.getEmail)
 router.post('/addComment', isAuth.isAuthenticated,CommentsController.store);
 router.post('/updateComment/:id', isAuth.isAuthenticated,CommentsController.update)
 router.delete('/deleteComment/:id', isAuth.isAuthenticated,CommentsController.delete);

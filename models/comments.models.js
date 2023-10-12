@@ -13,6 +13,8 @@ class comments{
             return res.status(500).send('Internal Server Error');
         }
     }
+
+    
   
     static async createComment(req, res){
         try {
@@ -50,6 +52,7 @@ class comments{
     }
 
 
+
     static async deleteComment(req, res){
         try {
             const comment = await prisma.comment.delete(
@@ -65,6 +68,27 @@ class comments{
             return res.status(404).send('Internal Server Error');
         }
         
+    }
+
+
+
+    static async getEmail(req,res){
+        // console.log(req.params.name);
+        try {
+            const email = await prisma.user.findMany(
+                {
+                    where : {
+                        name : req.params.name
+                    }
+
+                }
+            );
+            console.log(email);
+            return email
+        } catch (error) {
+
+            return res.status(500).send('Internal Server Error');
+        }
     }
 
 }

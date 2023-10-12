@@ -3,7 +3,7 @@ const articleRoutes = require("./routes/articles");
 const commentsRoutes = require("./routes/comments");
 const authRouter = require("./routes/auth");
 const pages = require("./routes");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 const layoutEjs = require("express-ejs-layouts");
 
 const express = require("express");
@@ -12,7 +12,7 @@ const app = express();
 const methodOverride = require("method-override");
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 // Use method-override middleware
 app.use(methodOverride("_method"));
