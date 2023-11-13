@@ -14,6 +14,7 @@ class CommentController {
             return res.status(500).send('Internal Server Error');
         }
     }
+
     
 
     static async storeComment(req,res) {
@@ -55,11 +56,25 @@ class CommentController {
             await modelsComments.deleteComment(req);
             res.redirect('back');
     }
+
+
+
+
+    static async getEmail(req, res){
+        try {
+            const email = await modelsComments.getEmail(req);
+            res.render('comments', { email });
+        } catch (error) {
+           
+            return res.status(500).send('Internal Server Error');
+        }
+    }
 }
 
 module.exports = {
     index : CommentController.index,
     store : CommentController.storeComment,
+    getEmail : CommentController.getEmail,
     update : CommentController.updateComment,
     delete : CommentController.deleteComment
 }

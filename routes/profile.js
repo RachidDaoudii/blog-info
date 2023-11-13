@@ -6,6 +6,7 @@ const generateCSRFToken = require("../helpers/tokenGenerator");
 
 // Display user profile
 router.get('/profile/:userId', generateCSRFToken, UserController.getUserProfile);
+router.get('/profile/:name', generateCSRFToken, UserController.getUserProfile);
 // Update user profile
 router.post('/profile/:userId' ,upload.upload.single('profileImage') ,UserController.updateUserProfile);
 
